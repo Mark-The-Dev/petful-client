@@ -35,7 +35,8 @@ When I visit the adoption page, I can see:
 
 Git Clone this and the Petful server from gtihub,
 npm install both,
-run the server and run the client. 
+run the server and run the client.
+(To run locally use localhost link with server!) 
 
 
 

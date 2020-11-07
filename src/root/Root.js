@@ -13,7 +13,7 @@ class Root extends Component {
   };
   // Grabs People List
   componentDidMount() {
-    return fetch(`${config.API_ENDPOINT}/people`)
+    return fetch(`${config.REACT_APP_API_BASE}/people`)
       .then((exRes) => {
         if (!exRes.ok) {
           return exRes.json().then((e) => Promise.reject(e));
@@ -29,7 +29,7 @@ class Root extends Component {
   }
   //A function to grab people to update rendering when needed.
   getPeople = () => {
-    return fetch(`${config.API_ENDPOINT}/people`)
+    return fetch(`${config.REACT_APP_API_BASE}/people`)
       .then((exRes) => {
         if (!exRes.ok) {
           return exRes.json().then((e) => Promise.reject(e));
@@ -54,7 +54,7 @@ class Root extends Component {
   };
   //Adds you to the adoption list
   addPerson = () => {
-    return fetch(`${config.API_ENDPOINT}/people`, {
+    return fetch(`${config.REACT_APP_API_BASE}/people`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -68,7 +68,7 @@ class Root extends Component {
   };
   //Adds additional users once you are at the front of the line
   addPersons = (value) => {
-    return fetch(`${config.API_ENDPOINT}/people`, {
+    return fetch(`${config.REACT_APP_API_BASE}/people`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -82,7 +82,7 @@ class Root extends Component {
   };
   //Removes a person from the queue
   removePerson = () => {
-    return fetch(`${config.API_ENDPOINT}/people`, {
+    return fetch(`${config.REACT_APP_API_BASE}/people`, {
       method: "DELETE",
     })
       
@@ -136,7 +136,7 @@ class Root extends Component {
   }
   //removes pets from storage
   removePets = (type) => {
-    fetch(`${config.API_ENDPOINT}/pets/${type}`, {
+    fetch(`${config.REACT_APP_API_BASE}/pets/${type}`, {
       method: "DELETE",
     })
       .then((exRes) => {
@@ -152,8 +152,8 @@ class Root extends Component {
   // A fetch to grab all pet info.
   getPets = () => {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/pets/cat`),
-      fetch(`${config.API_ENDPOINT}/pets/dog`),
+      fetch(`${config.REACT_APP_API_BASE}/pets/cat`),
+      fetch(`${config.REACT_APP_API_BASE}/pets/dog`),
     ])
       .then(([exRes, pRes]) => {
         if (!exRes.ok) {
