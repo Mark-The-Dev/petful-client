@@ -31,7 +31,7 @@ class AdoptPage extends Component {
   //Generates list for current Dog in Queue
   thisDog = () => {
     if(!this.props.dog.length){
-      if(this.props.currentPeople[0] === '(You)'){
+      if(this.props.currentPeople[0].includes('You')){
         return (
           <>
           <img src={`${this.props.dog.imageURL}`}></img>
@@ -71,7 +71,7 @@ class AdoptPage extends Component {
   //Generates list for current Cat in Queue
   thisCat = () => {
     if(!this.props.cat.length){
-      if(this.props.currentPeople[0] === '(You)'){
+      if(this.props.currentPeople[0].includes('You')){
 
         return (
           <>
@@ -107,6 +107,13 @@ class AdoptPage extends Component {
     
   }
 
+  resetFields = () => {
+    this.setState({
+      hasPet:false,
+      congrats: false
+    })
+    this.props.history.push('/')
+  }
   
 
   render() {
@@ -125,7 +132,9 @@ class AdoptPage extends Component {
             <h3>Dog</h3>
             {this.thisDog()}
           </div>
-
+          <footer>
+          <p>Current People in Line: {this.props.listPeople()}</p>
+        </footer>
           </div>
           
          
@@ -139,9 +148,16 @@ class AdoptPage extends Component {
       }
       
       return (
+        <>
         <CongratsPage
           pet={this.state.currentPet}
-        />
+          reset={this.resetFields}
+        />    
+        <footer>
+          <p>Current People in Line: {this.props.listPeople()}</p>
+        </footer>
+        </>
+        
       )
     }
     

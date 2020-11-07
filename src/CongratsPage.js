@@ -13,6 +13,11 @@ class CongratsPage extends Component {
         <p>{"Breed: " + this.props.pet.breed}</p>
         <p>{"Gender: " + this.props.pet.gender}</p>
         <p>{"Story: " + this.props.pet.story}</p>
+        <button type ='button'
+          onClick={() => this.props.reset()}
+        >
+          Return to homepage?
+        </button>
       </>
     );
   }

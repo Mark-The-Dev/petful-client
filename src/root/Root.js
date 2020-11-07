@@ -9,7 +9,8 @@ class Root extends Component {
   state = {
     people: [],
     cat:'',
-    dog:''
+    dog:'',
+    currentName:''
   };
   // Grabs People List
   componentDidMount() {
@@ -53,14 +54,14 @@ class Root extends Component {
     return <>{list}</>;
   };
   //Adds you to the adoption list
-  addPerson = () => {
+  addPerson = (name) => {
     return fetch(`${config.REACT_APP_API_BASE}/people`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        name: "(You)",
+        name: `${name} (You)`,
       }),
     }).then(() => {
       return this.getPeople();
@@ -96,7 +97,7 @@ class Root extends Component {
   // creates the new people to the list.
   handleAdds = () => {
     let ppl = ["Todd", "Schmodd", "Dod", "Slodd"];
-    if (this.state.people[0] === "(You)") {
+    if (this.state.people[0].includes("You")) {
       setTimeout(() => {
         this.addPersons(ppl[0]);
       }, 2000);
@@ -114,7 +115,7 @@ class Root extends Component {
   };
   //Handles the users being removed before you.
    handleRemove = () => {
-    if (this.state.people[0] !== "(You)"){
+    if (!this.state.people[0].includes("You")){
       this.handleRemovePets();
       
       setTimeout(() => {
@@ -174,7 +175,7 @@ class Root extends Component {
   }
   // function to simulate pet adoption
   handleRemovePets = () => {
-    if (this.state.people[0] !== "(You)"){
+    if (!this.state.people[0].includes("You")){
       setTimeout(() => {
         let d = Math.random()
         if(d > 0.5){
@@ -214,8 +215,12 @@ class Root extends Component {
     }
   }
 
+  grabName =(name) => {
+    this.setState({currentName: name})
+  }
+
   render() {
-    console.log(this.state);
+    
     return (
       <div>
         <Header />
@@ -226,6 +231,8 @@ class Root extends Component {
               <HomePage {...routerProps} 
               addPerson={this.addPerson}
               handleRemove={this.handleRemove}
+              grabName={this.grabName}
+              currentPerson={this.state.currentName}
               
               />
             )}
@@ -241,14 +248,13 @@ class Root extends Component {
               cat={this.state.cat}
               currentPeople={this.state.people}
               removePet={this.removePets}
+              listPeople={this.listPeople}
               />}
             exact={true}
           />
         </Switch>
 
-        <footer>
-          <p>Current People in Line: {this.listPeople()}</p>
-        </footer>
+        
       </div>
     );
   }
