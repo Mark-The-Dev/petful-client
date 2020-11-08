@@ -17,14 +17,16 @@ class AdoptPage extends Component {
       currentPet: this.props.cat,
       hasPet: true
     })
+    this.props.removePet('cat')
+    return;
   }
   //stores info to state on pet selected
   storeDog = () => {
     this.setState({
       currentPet: this.props.dog,
       hasPet: true
-
     })
+    this.props.removePet('dog')
     return;
   }
 
